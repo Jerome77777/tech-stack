@@ -1,0 +1,68 @@
+$emotion: $jade;
+$encourage: #0099ff;
+$entertainment: #ff6666;
+$self-cultivation: #8552a1;
+$aestheticism: #2edfa3;
+$philosophy: #333366;
+
+.emotion-colors {
+  color: $emotion;
+  border-color: $emotion;
+}
+.encourage-colors {
+  color: $encourage;
+  border-color: $encourage;
+}
+.entertainment-colors {
+  color: $entertainment;
+  border-color: $entertainment;
+}
+.self-cultivation-colors {
+  color: $self-cultivation;
+  border-color: $self-cultivation;
+}
+.aestheticism-colors {
+  color: $aestheticism;
+  border-color: $aestheticism;
+}
+.philosophy-colors {
+  color: $philosophy;
+  border-color: $philosophy;
+}
+
+#awesome-sentence {
+  .encourage-colors {
+    color: #ffffcc;
+    fill: #ffffcc;
+    background-color: $encourage;
+    border: 1px solid $encourage !important;
+  }
+
+  .entertainment-colors {
+    color: #ffff00;
+    fill: #ffff00;
+    background-color: $entertainment;
+    border: 1px solid #ffff00;
+  }
+
+  .self-cultivation-colors {
+    color: #fefefe;
+    fill: #fefefe;
+    background-color: $self-cultivation;
+    border: 1px solid #333333;
+  }
+
+  .aestheticism-colors {
+    color: #ffffff;
+    fill: #ffffff;
+    background-color: $aestheticism;
+    border: 1px solid #ffffff;
+  }
+
+  .philosophy-colors {
+    color: #fefefe;
+    fill: #fefefe;
+    background-color: $philosophy;
+    border: 1px solid #fefefe;
+  }
+}
