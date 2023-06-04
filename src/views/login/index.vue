@@ -58,6 +58,10 @@ import { computed, reactive, ref } from 'vue'
 import type { TipMessage } from './type'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/icons/Icon.vue'
+import { $post } from '@/plugins'
+import { toRaw } from 'vue'
+import { setLocalStorage } from '@/utils/storage'
+import { USER_INFO } from '@/utils/constants'
 
 const router = useRouter()
 
@@ -87,7 +91,14 @@ const onBottomClick = () => {
   })
 }
 
-const onLoginClick = () => {}
+const onLoginClick = () => {
+  $post('user/login', toRaw(account)).then((res) => {
+    setLocalStorage(USER_INFO, res)
+    router.push({
+      path: '/all'
+    })
+  })
+}
 
 const onSignupClick = () => {}
 </script>

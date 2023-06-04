@@ -1,33 +1,37 @@
 <template>
   <div class="sub-head" id="sub-head">
     <ul class="sub-head-nav" ref="subHeadNav">
-      <li :class="makeClassName({ key: '全部', value: 'all' })">
-        <router-link @click.native="onAllTheme" to="/explore/all" class="theme-link">
-          全部
-        </router-link>
-      </li>
-      <li
-        v-for="item in themeList"
-        :key="item.vaule"
-        :class="makeClassName(item)"
-        @click="handleTabSwitch(item)"
-      >
+      <li v-for="item in Category" :key="item.value" :class="makeClassName(item.value)">
         <router-link class="theme-link" :to="getLinkPathByThemeVal(item.value)">
-          {{ item.key }}
+          {{ item.name }}
         </router-link>
       </li>
     </ul>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue'
+import { Category } from './header'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const currentType = computed(() => router.currentRoute.value.params.type)
+
+const makeClassName = (value: string) => {
+  return currentType.value === value ? 'nav-item is-active' : 'nav-item'
+}
+
+const getLinkPathByThemeVal = (value: string) => {
+  return value ? `/${value}` : '/all'
+}
+</script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/variables.scss';
 
 .sub-head {
   width: 100%;
-  max-width: 960px;
   overflow: auto;
   text-align: left;
   border-bottom: solid 1px #d1d5da;

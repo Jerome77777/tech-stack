@@ -2,7 +2,7 @@
   <header class="header blur-effect">
     <nav class="nav">
       <div class="header-logo">
-        <a href="/" rel="home" class="header-logo-a nicelinks-logo">
+        <a href="/all" rel="home" class="header-logo-a nicelinks-logo">
           <img src="../../assets/images/logo.png" alt="技术站" />
           <h1 class="title">技术站</h1>
         </a>
@@ -17,20 +17,21 @@
       <div class="search-area" id="search-area">
         <search />
       </div>
-      <div class="user-account" v-if="false">
-        <el-dropdown @command="handleCommand" trigger="click">
+      <div class="user-account" v-if="isLoginIn">
+        <el-dropdown trigger="click">
           <span class="el-dropdown-link">
             <!-- <img class="avatar" :src="userAvatar" :alt="$t('niceLinksStr')" /> -->
-            <span>{{ userSign }} </span>
-            <i class="el-icon-arrow-down el-icon--right"></i>
+            <span>{{ userinfo && userinfo.userName }} </span>
+            <el-icon style="margin-left: 10px"><ArrowDownBold /></el-icon>
           </span>
-          <el-dropdown-menu class="user-account-dropdown-menu">
-            <template #dropdown>
-              <el-dropdown-item command="Logout" divided>
+
+          <template #dropdown>
+            <el-dropdown-menu class="user-account-dropdown-menu">
+              <el-dropdown-item @click="Logout">
                 <icon class="icons" name="logout"></icon>登出
               </el-dropdown-item>
-            </template>
-          </el-dropdown-menu>
+            </el-dropdown-menu>
+          </template>
         </el-dropdown>
       </div>
       <div v-else class="not-loggedin">
@@ -44,14 +45,41 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import SwitchTheme from './SwitchTheme.vue'
 import { useRouter } from 'vue-router'
+import { UserInfo } from './type'
+import { getLocalStorage, removeLocalStorage } from '@/utils/storage'
+import { USER_INFO } from '@/utils/constants'
+import Icon from '@/components/icons/Icon.vue'
+import { onMounted } from 'vue'
+import { ArrowDownBold } from '@element-plus/icons'
 
-const userSign = ref('')
+const isLoginIn = ref(false)
+const userinfo = ref({} as UserInfo)
 const router = useRouter()
 
+watch(
+  () => router.currentRoute.value.path,
+  () => {
+    getLoginInfo()
+  }
+)
+
+onMounted(() => {
+  getLoginInfo()
+})
+
 const onToggleMenuClick = () => {}
+
+const getLoginInfo = () => {
+  userinfo.value = getLocalStorage(USER_INFO)
+  if (userinfo.value) {
+    isLoginIn.value = true
+  } else {
+    isLoginIn.value = false
+  }
+}
 
 const onGotoLoginClick = () => {
   router.push({
@@ -65,7 +93,10 @@ const onGotoSignUpClick = () => {
   })
 }
 
-const handleCommand = () => {}
+const Logout = () => {
+  removeLocalStorage(USER_INFO)
+  getLoginInfo()
+}
 
 const onShareBtnMouseover = () => {}
 
@@ -86,7 +117,7 @@ const onShareBtnMouseout = () => {}
   padding: 0 2rem;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
+  z-index: 2000;
 
   .nav {
     position: relative;

@@ -8,3 +8,10 @@ export interface HttpRequestConfig extends AxiosRequestConfig {
 export interface HttpResponse extends AxiosResponse {
   config: HttpRequestConfig
 }
+
+export interface ApiMeta {
+  name: string
+  path: string
+  method: 'POST' | 'GET' | 'PUT' | 'DELETE'
+  description: string
+}

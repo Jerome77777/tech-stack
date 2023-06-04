@@ -1,55 +1,71 @@
 <template>
-  <div class="content">
-    <h2 class="mb-normal">
-      <a class="title-link" target="_blank" rel="external noopener">
-        {{ pitem.articleName }}
-      </a>
-    </h2>
-    <div class="meta-box mb-normal">
-      <a class="item classify" href="#">{{ pitem.articleCategory }}</a>
-      <a class="tag" target="_blank" rel="tag">{{ pitem.articleAuthorName }}</a>
-    </div>
-    <!-- list is abstract: 是否显示摘要内容  -->
-    <div>
-      <div class="link-desc" v-html="pitem.articleIntroduction"></div>
-    </div>
-    <div class="action-list">
-      <div class="action-pitem">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icons icon-tabler icon-tabler-eye"
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="#9393aa"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M0 0h24v24H0z" stroke="none" />
-          <circle cx="12" cy="12" r="2" />
-          <path
-            d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7"
-          />
-        </svg>
-        <span class="pitem-num">{{ pitem.numOfWords }}</span>
+  <div class="wrapper" id="nice-links">
+    <div class="panel-default">
+      <div class="panel-body">
+        <div class="main-container">
+          <div class="entry-list">
+            <div class="links-list">
+              <el-card shadow="hover" class="article-card">
+                <div class="content">
+                  <div class="info-block mb-normal">
+                    <a class="user-info" target="_blank" rel="noopener">
+                      <el-avatar
+                        :size="50"
+                        src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+                      />
+                    </a>
+                    <div class="meta-block">
+                      <div class="meta-box"></div>
+                      <div class="meta-box">
+                        <span class="item" style="margin-right: 1rem"
+                          >作者 {{ article.articleAuthorName }}</span
+                        >
+                        <span>文章字数 {{ article.numOfWords }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Editor
+                    style="overflow-y: hidden; text-align: initial; width: 100%"
+                    v-model="article.articleContent"
+                    :defaultConfig="{
+                      readOnly: true
+                    }"
+                    mode="default"
+                  />
+                </div>
+              </el-card>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Aritcle } from '../../type'
+import '@wangeditor/editor/dist/css/style.css'
+import { Editor } from '@wangeditor/editor-for-vue'
+import { $post } from '@/plugins'
+import { onBeforeMount } from 'vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { Aritcle } from '../home/type'
 
-const props = defineProps<{
-  pitem: Aritcle
-}>()
+const article = ref<Aritcle>({} as Aritcle)
+const router = useRouter()
+
+onBeforeMount(() => {
+  const id = router.currentRoute.value.params.id
+  $post('article/getContent', { articleId: id }).then((res: Aritcle[]) => {
+    article.value = res[0]
+  })
+})
 </script>
 
 <style media="screen" lang="scss" scoped>
 @import '@/assets/scss/variables.scss';
 @import '@/assets/scss/mixins.scss';
+// @import '@/assets/scss/editor.scss';
 
 .medium-zoom-image--opened {
   z-index: 10000;

@@ -2,6 +2,7 @@ import axios, { AxiosError, type AxiosRequestConfig, type AxiosRequestHeaders } 
 
 import { NProgressInstance } from '@/utils/progress'
 import type { HttpRequestConfig, HttpResponse } from './type'
+import { ElMessage } from 'element-plus'
 
 function getAxiosHeaders(): AxiosRequestHeaders {
   const headers: AxiosRequestHeaders = {} as AxiosRequestHeaders
@@ -11,7 +12,7 @@ function getAxiosHeaders(): AxiosRequestHeaders {
 const AXIOS_DEFAULT_CONFIG: AxiosRequestConfig = {
   timeout: 20000,
   headers: getAxiosHeaders(),
-  baseURL: ''
+  baseURL: '/rest'
 }
 
 export const httpclient = axios.create(AXIOS_DEFAULT_CONFIG)
@@ -27,6 +28,7 @@ httpclient.interceptors.request.use(
     return config
   },
   (error) => {
+    ElMessage.error(error.message)
     return Promise.reject(error)
   }
 )
@@ -39,9 +41,16 @@ httpclient.interceptors.response.use(
       config.beforeResponseCallback(res)
       return res.data
     }
+    const data = res.data.data
+    if (res.data.status_code === 200) {
+      return data
+    } else {
+      ElMessage.error(data.msg)
+    }
   },
   (resErr: AxiosError<{ code: string; msg: string }>) => {
     NProgressInstance.done()
     console.error(resErr)
+    ElMessage.error(resErr.message)
   }
 )
