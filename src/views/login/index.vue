@@ -100,7 +100,14 @@ const onLoginClick = () => {
   })
 }
 
-const onSignupClick = () => {}
+const onSignupClick = () => {
+  $post('user/login', toRaw(account)).then((res) => {
+    setLocalStorage(USER_INFO, res)
+    router.push({
+      path: '/all'
+    })
+  })
+}
 </script>
 
 <style lang="scss" scoped>

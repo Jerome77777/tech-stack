@@ -9,18 +9,31 @@
                 <div class="content">
                   <el-form :model="form">
                     <el-form-item label="标题">
-                      <el-input v-model="form.articleName"></el-input>
+                      <el-input v-model="form.articleName" placeholder="标题"></el-input>
                     </el-form-item>
                     <el-form-item label="标签">
-                      <el-input v-model="form.articleLabel"></el-input>
+                      <el-input v-model="form.articleLabel" placeholder="标签"></el-input>
                     </el-form-item>
                     <el-form-item label="类别">
-                      <el-input v-model="form.articleCategory"></el-input>
+                      <el-select
+                        v-model="form.articleCategory"
+                        style="width: 100%"
+                        placeholder="类别"
+                      >
+                        <el-option
+                          v-for="item in categoryOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        >
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                     <el-form-item label="简介">
                       <el-input
                         v-model="form.articleIntroduction"
                         :autosize="{ minRows: 4 }"
+                        placeholder="简介"
                         type="textarea"
                       ></el-input>
                     </el-form-item>
@@ -46,6 +59,7 @@ import { $post } from '@/plugins'
 import { toRaw } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { categoryOptions } from './add'
 
 const router = useRouter()
 

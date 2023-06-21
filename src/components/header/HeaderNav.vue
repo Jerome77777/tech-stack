@@ -14,6 +14,7 @@
       <div class="share-btn" @mouseenter="onShareBtnMouseover" @mouseout="onShareBtnMouseout">
         <a class="gradient-text" target="_blank" href="https://ai.classicbook.xyz/">AI 助手 </a>
       </div>
+
       <div class="search-area" id="search-area">
         <search />
       </div>

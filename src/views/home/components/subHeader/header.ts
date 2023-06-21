@@ -5,14 +5,14 @@ export const Category = [
   },
   {
     name: '前端',
-    value: 'frontend'
+    value: '前端'
   },
   {
     name: '后端',
-    value: 'backend'
+    value: '后端'
   },
   {
     name: '大数据',
-    value: 'bigdata'
+    value: '大数据'
   }
 ]

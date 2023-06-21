@@ -1,13 +1,9 @@
 <template>
-  <div class="wrapper" id="nice-links">
+  <div class="wrapper">
     <div class="panel-default">
       <div class="panel-body">
         <div class="main-container">
           <div class="entry-list">
-            <!-- <search class="mobile-search" />
-            <SubHeader :theme-list="themeList" /> -->
-            <!-- <links-list :pdata="pData" :is-loading="isLoading" />
-            <pagination :count="linksCount" :page="currentPage" /> -->
             <SubHeader />
             <links-list :article-list="articleList" :is-loading="isLoading" />
           </div>
@@ -29,23 +25,38 @@ const router = useRouter()
 const articleList = ref<Aritcle[]>([])
 const isLoading = ref(true)
 
-console.log('router', router.currentRoute.value.params)
-
 const getListByType = (type: string) => {
   isLoading.value = true
-  $post('article/getList', {
-    searchAll: 'true',
-    articleShelf: '',
-    searchType: '',
-    page: 0,
-    pageSize: 10
-  })
-    .then((res: Aritcle[]) => {
-      articleList.value = res
+  articleList.value = []
+  if (type === 'all') {
+    $post('article/getList', {
+      searchAll: 'true',
+      articleShelf: '',
+      searchType: '',
+      page: 0,
+      pageSize: 10
     })
-    .finally(() => {
-      isLoading.value = false
+      .then((res: Aritcle[]) => {
+        articleList.value = res
+      })
+      .finally(() => {
+        isLoading.value = false
+      })
+  } else {
+    $post('article/getByType', {
+      searchAll: 'false',
+      articleShelf: '',
+      searchType: type,
+      page: 0,
+      pageSize: 10
     })
+      .then((res: Aritcle[]) => {
+        articleList.value = res
+      })
+      .finally(() => {
+        isLoading.value = false
+      })
+  }
 }
 
 watch(

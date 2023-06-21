@@ -5,12 +5,15 @@ import Article from '../views/article/index.vue'
 import AddArticle from '../views/addArticle/index.vue'
 
 const router = createRouter({
+  // @ts-ignore
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      redirect: '/all',
+      children: []
     },
     {
       path: '/:type',

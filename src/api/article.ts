@@ -15,5 +15,10 @@ export default [
     name: 'addArticle',
     path: '/article/upsert_article',
     description: '添加文章'
+  },
+  {
+    name: 'getByType',
+    path: '/article/search_by_type',
+    description: '根据文章类型获取文章'
   }
 ] as ApiMeta[]
