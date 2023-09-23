@@ -35,6 +35,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  build: {
+    outDir: 'tech-stack'
+  },
   server: {
     proxy: {
       '/rest': {

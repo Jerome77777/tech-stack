@@ -7,6 +7,7 @@ import AddArticle from '../views/addArticle/index.vue'
 import PrivacyPolicy from '../views/privacy-policy/index.vue'
 
 const router = createRouter({
+  // @ts-ignore
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {

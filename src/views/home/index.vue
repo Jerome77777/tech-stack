@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" id="nice-links">
+  <div class="wrapper">
     <div class="panel-default">
       <div class="panel-body">
         <div class="main-container">
@@ -78,9 +78,27 @@ const getListByType = (type: string) => {
         articleList.value = res
       }
     })
-    .finally(() => {
-      isLoading.value = false
+      .then((res: Aritcle[]) => {
+        articleList.value = res
+      })
+      .finally(() => {
+        isLoading.value = false
+      })
+  } else {
+    $post('article/getByType', {
+      searchAll: 'false',
+      articleShelf: '',
+      searchType: type,
+      page: 0,
+      pageSize: 10
     })
+      .then((res: Aritcle[]) => {
+        articleList.value = res
+      })
+      .finally(() => {
+        isLoading.value = false
+      })
+  }
 }
 
 watch(
