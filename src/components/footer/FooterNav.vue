@@ -5,7 +5,15 @@
         <div class="list-item show-on-big-screen"></div>
         <div class="list-item">
           <p class="title">产品</p>
-          <a class="nice-link" target="_blank" href="https://ai.classicbook.xyz/">AI 助手 </a>
+          <a class="nice-link" target="_blank" href="https://www.classicbook.xyz"
+            >典阅故事会官网
+          </a>
+          <a class="nice-link" target="_blank" href="https://ai.classicbook.xyz/"
+            >典阅故事会快应用
+          </a>
+          <a class="nice-link" target="_blank" href="https://ai.classicbook.xyz/"
+            >云端视野快应用
+          </a>
         </div>
         <div class="list-item">
           <p class="title">合作</p>
@@ -28,7 +36,7 @@
           target="_blank"
           :href="assembleExternalLink('https://beian.miit.gov.cn/')"
           rel="external noopener"
-          >闽ICP备2022018170号-1</a
+          >闽ICP备2022018170号-2</a
         >
       </div>
     </div>

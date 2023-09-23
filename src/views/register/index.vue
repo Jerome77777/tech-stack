@@ -11,15 +11,19 @@
         </el-alert>
       </div>
       <el-form :model="account" :rules="rules" ref="validateForm">
-        <el-form-item prop="uid" v-if="isSignUpPage">
-          <el-input v-model.trim.lazy="account.uid" placeholder="请输入账号" :autofocus="true">
+        <el-form-item prop="phoneNumber">
+          <el-input
+            v-model.trim.lazy="account.phoneNumber"
+            placeholder="请输入手机号"
+            :autofocus="true"
+          >
             <template #prepend>
               <icon class="icons" name="login-user"></icon>
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item prop="uid" v-if="!isSignUpPage">
-          <el-input placeholder="请输入账号 ID" v-model.trim="account.uid">
+        <el-form-item prop="userName">
+          <el-input placeholder="请输入用户名" v-model.trim="account.userName">
             <template #prepend>
               <icon class="icons" name="login-user"></icon>
             </template>
@@ -32,19 +36,11 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-button type="primary" v-if="!isSignUpPage" @click="onLoginClick" size="large">
-          登录
-        </el-button>
-        <el-button v-else @click="onSignupClick" size="large">注册</el-button>
+        <el-button @click="onSignupClick" size="large">注册</el-button>
       </el-form>
 
       <div class="form-group login-tip">
-        <p class="text-center">
-          {{ isSignUpPage ? '您已拥有一个账号？' : '您还未拥有一个账号？' }}
-          <a class="el-button--text" href="javascript:;" @click="onBottomClick">
-            {{ isSignUpPage ? '登录' : '注册' }}</a
-          >
-        </p>
+        <p class="text-center">您还未拥有一个账号？</p>
       </div>
       <div class="footer">
         <a href="/all" class="route-to-main"> 云端视野 </a>
@@ -54,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import type { TipMessage } from './type'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/icons/Icon.vue'
@@ -66,41 +62,40 @@ import { USER_INFO } from '@/utils/constants'
 const router = useRouter()
 
 const isLoading = ref(false)
+import { ElMessage } from 'element-plus'
 const tipMessageObj = ref<TipMessage>({} as TipMessage)
 
 const account = reactive<{
-  uid: string
+  phoneNumber: string
+  userName: string
   passwd: string
 }>({
-  uid: '',
+  phoneNumber: '',
+  userName: '',
   passwd: ''
 })
 
 const rules = {
-  uid: [{ required: true, trigger: 'change,blur' }],
-  passwd: [{ required: true, trigger: 'change,blur' }]
+  passwd: [{ required: true, trigger: 'change,blur' }],
+  phoneNumber: [{ required: true, trigger: 'change,blur' }],
+  userName: [{ required: true, trigger: 'change,blur' }]
 }
 
-const isSignUpPage = computed(() => {
-  return router.currentRoute.value.path === '/register'
-})
-
-const onBottomClick = () => {
-  router.push({
-    path: isSignUpPage.value ? '/register' : '/login'
-  })
-}
-
-const onLoginClick = () => {
-  $post('user/login', toRaw(account)).then((res) => {
-    setLocalStorage(USER_INFO, res)
+const onSignupClick = () => {
+  $post('user/register', toRaw(account)).then((res) => {
+    if (!res) {
+      ElMessage.error('注册失败！')
+      return
+    }
+    setLocalStorage(USER_INFO, {
+      uid: account.phoneNumber,
+      userName: account.userName
+    })
     router.push({
       path: '/all'
     })
   })
 }
-
-const onSignupClick = () => {}
 </script>
 
 <style lang="scss" scoped>

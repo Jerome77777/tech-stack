@@ -14,5 +14,21 @@ export const Category = [
   {
     name: '大数据',
     value: 'bigdata'
+  },
+  {
+    name: '人工智能',
+    value: 'rgzn'
+  },
+  {
+    name: '算法',
+    value: 'algorithm'
+  },
+  {
+    name: '框架',
+    value: 'framework'
+  },
+  {
+    name: '工具推荐',
+    value: 'toolRecommendations'
   }
 ]

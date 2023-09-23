@@ -10,3 +10,11 @@ export interface Aritcle {
   createTime: string
   numOfWords: number
 }
+
+export interface ArticleForm {
+  searchAll?: string
+  articleShelf: string
+  searchType: string
+  page: number
+  pageSize: number
+}

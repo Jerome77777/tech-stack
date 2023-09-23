@@ -3,19 +3,19 @@
     <nav class="nav">
       <div class="header-logo">
         <a href="/all" rel="home" class="header-logo-a nicelinks-logo">
-          <img src="../../assets/images/logo.png" alt="技术站" />
-          <h1 class="title">技术站</h1>
+          <img src="../../assets/images/logo.png" alt="云端视野" />
+          <h1 class="title">云端视野</h1>
         </a>
       </div>
 
       <a href="javascript:;" class="menu" @click="onToggleMenuClick">
         <span></span>
       </a>
-      <div class="share-btn" @mouseenter="onShareBtnMouseover" @mouseout="onShareBtnMouseout">
+      <!-- <div class="share-btn" @mouseenter="onShareBtnMouseover" @mouseout="onShareBtnMouseout">
         <a class="gradient-text" target="_blank" href="https://ai.classicbook.xyz/">AI 助手 </a>
-      </div>
+      </div> -->
       <div class="search-area" id="search-area">
-        <search />
+        <el-input v-model="searchVal"></el-input>
       </div>
       <div class="user-account" v-if="isLoginIn">
         <el-dropdown trigger="click">
@@ -58,6 +58,7 @@ import { ArrowDownBold } from '@element-plus/icons'
 const isLoginIn = ref(false)
 const userinfo = ref({} as UserInfo)
 const router = useRouter()
+const searchVal = ref()
 
 watch(
   () => router.currentRoute.value.path,

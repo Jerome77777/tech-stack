@@ -1,5 +1,5 @@
 <template>
-  <div class="links-list">
+  <div class="links-list" ref="container">
     <el-card shadow="hover" v-if="articleList.length <= 0">
       <div class="content">
         <el-card class="tip-box-card" v-if="!isLoading">
@@ -32,16 +32,32 @@
 import LinkItem from './ListItem.vue'
 import { Aritcle } from '../../type'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { onMounted } from 'vue'
 
 const router = useRouter()
+const container = ref()
 
-const props = defineProps<{
+defineProps<{
   isLoading: boolean
   articleList: Aritcle[]
 }>()
 
+const emits = defineEmits(['searchMore'])
+
 const noResultTip =
-  '嘿，朋友，这儿暂未有相关数据；如果您想了解更多，请移步至<a class="no-result-tip-a" href="/">技术站</a>主页 。'
+  '嘿，朋友，这儿暂未有相关数据；如果您想了解更多，请移步至<a class="no-result-tip-a" href="/">云端视野</a>主页 。'
+
+onMounted(() => {
+  window.addEventListener('scroll', (e) => {
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+    let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+    if (scrollTop + windowHeight == scrollHeight) {
+      emits('searchMore')
+    }
+  })
+})
 
 const handleArticleCardClick = (article: Aritcle) => {
   router.push({
@@ -56,6 +72,19 @@ const handleArticleCardClick = (article: Aritcle) => {
 <style media="screen" lang="scss" scoped>
 @import '@/assets/scss/variables.scss';
 @import '@/assets/scss/mixins.scss';
+
+.el-pagination {
+  :deep(.el-input__inner) {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.pagination {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
 
 .main {
   .links-list {

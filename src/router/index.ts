@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/home/index.vue'
 import Login from '../views/login/index.vue'
+import Register from '../views/register/index.vue'
 import Article from '../views/article/index.vue'
 import AddArticle from '../views/addArticle/index.vue'
+import PrivacyPolicy from '../views/privacy-policy/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +12,9 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      redirect: '/all',
+      children: []
     },
     {
       path: '/:type',
@@ -35,7 +39,12 @@ const router = createRouter({
     {
       path: '/register',
       name: 'register',
-      component: Login
+      component: Register
+    },
+    {
+      path: '/privacy-policy',
+      name: 'privacy-policy',
+      component: PrivacyPolicy
     }
   ]
 })

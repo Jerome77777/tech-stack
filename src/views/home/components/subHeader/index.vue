@@ -1,7 +1,11 @@
 <template>
   <div class="sub-head" id="sub-head">
     <ul class="sub-head-nav" ref="subHeadNav">
-      <li v-for="item in Category" :key="item.value" :class="makeClassName(item.value)">
+      <li
+        v-for="item in Category"
+        :key="item.value"
+        :class="currentType === item.value ? 'nav-item is-active' : 'nav-item'"
+      >
         <router-link class="theme-link" :to="getLinkPathByThemeVal(item.value)">
           {{ item.name }}
         </router-link>
@@ -16,11 +20,10 @@ import { Category } from './header'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const currentType = computed(() => router.currentRoute.value.params.type)
-
-const makeClassName = (value: string) => {
-  return currentType.value === value ? 'nav-item is-active' : 'nav-item'
-}
+const currentType = computed(() => {
+  console.log('router.currentRoute.value.params.type', router.currentRoute.value.params.type)
+  return router.currentRoute.value.params.type
+})
 
 const getLinkPathByThemeVal = (value: string) => {
   return value ? `/${value}` : '/all'
