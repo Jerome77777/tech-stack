@@ -5,30 +5,30 @@ export const Category = [
   },
   {
     name: '前端',
-    value: '前端'
+    value: 'frontend'
   },
   {
     name: '后端',
-    value: '后端'
+    value: 'backend'
   },
   {
     name: '大数据',
-    value: '大数据'
+    value: 'bigdata'
   },
   {
     name: '人工智能',
-    value: '人工智能'
+    value: 'rgzn'
   },
   {
     name: '算法',
-    value: '算法'
+    value: 'algorithm'
   },
   {
     name: '框架',
-    value: '框架'
+    value: 'framework'
   },
   {
     name: '工具推荐',
-    value: '工具推荐'
+    value: 'toolRecommendations'
   }
 ]

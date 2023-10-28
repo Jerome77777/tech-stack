@@ -78,27 +78,9 @@ const getListByType = (type: string) => {
         articleList.value = res
       }
     })
-      .then((res: Aritcle[]) => {
-        articleList.value = res
-      })
-      .finally(() => {
-        isLoading.value = false
-      })
-  } else {
-    $post('article/getByType', {
-      searchAll: 'false',
-      articleShelf: '',
-      searchType: type,
-      page: 0,
-      pageSize: 10
+    .finally(() => {
+      isLoading.value = false
     })
-      .then((res: Aritcle[]) => {
-        articleList.value = res
-      })
-      .finally(() => {
-        isLoading.value = false
-      })
-  }
 }
 
 watch(

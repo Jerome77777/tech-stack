@@ -36,7 +36,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'tech-stack'
+    outDir: 'yunduanshiye-web'
   },
   server: {
     proxy: {
