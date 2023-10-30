@@ -39,9 +39,6 @@
         <el-button @click="onSignupClick" size="large">注册</el-button>
       </el-form>
 
-      <div class="form-group login-tip">
-        <p class="text-center">您还未拥有一个账号？</p>
-      </div>
       <div class="footer">
         <a href="/all" class="route-to-main"> 云端视野 </a>
       </div>
@@ -87,6 +84,7 @@ const onSignupClick = () => {
       ElMessage.error('注册失败！')
       return
     }
+    console.log('res', res)
     setLocalStorage(USER_INFO, {
       uid: account.phoneNumber,
       userName: account.userName
@@ -202,6 +200,9 @@ const onSignupClick = () => {
   .login-box {
     width: 40rem;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: $white;
     clear: both;
     border-radius: 3px;

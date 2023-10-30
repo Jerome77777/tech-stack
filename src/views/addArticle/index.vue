@@ -8,12 +8,17 @@
               <el-card shadow="hover" class="article-card">
                 <div class="content">
                   <el-form :model="form">
-                    <el-form-item label="标题">
-                      <el-input v-model="form.articleName" placeholder="标题"></el-input>
-                    </el-form-item>
-                    <el-form-item label="标签">
-                      <el-input v-model="form.articleLabel" placeholder="标签"></el-input>
-                    </el-form-item>
+                    <el-row>
+                      <el-form-item label="标题">
+                        <el-input v-model="form.articleName" placeholder="标题"></el-input>
+                      </el-form-item>
+                    </el-row>
+                    <el-row>
+                      <el-form-item label="标签">
+                        <el-input v-model="form.articleLabel" placeholder="标签"></el-input>
+                      </el-form-item>
+                    </el-row>
+
                     <el-form-item label="类别">
                       <el-select
                         v-model="form.articleCategory"

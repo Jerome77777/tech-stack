@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import legacyPlugin from '@vitejs/plugin-legacy'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -11,6 +11,10 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    legacyPlugin({
+      targets: ['chrome 52'], // 需要兼容的目标列表，可以设置多个
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'] // 面向IE11时需要此插件
+    }),
     createSvgIconsPlugin({
       // 指定需要缓存的图标文件夹
       iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
@@ -41,7 +45,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/rest': {
-        target: 'http://122.224.50.45:8081',
+        target: 'http://36.26.81.223:8081',
         changeOrigin: true
       }
     }

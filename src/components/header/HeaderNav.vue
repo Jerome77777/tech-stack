@@ -14,19 +14,19 @@
       <!-- <div class="share-btn" @mouseenter="onShareBtnMouseover" @mouseout="onShareBtnMouseout">
         <a class="gradient-text" target="_blank" href="https://ai.classicbook.xyz/">AI 助手 </a>
       </div> -->
-      <div class="search-area" id="search-area">
+      <!-- <div class="search-area" id="search-area">
         <el-input v-model="searchVal"></el-input>
-      </div>
+      </div> -->
       <div class="user-account" v-if="isLoginIn">
         <el-dropdown trigger="click">
-          <span class="el-dropdown-link">
+          <span>
             <!-- <img class="avatar" :src="userAvatar" :alt="$t('niceLinksStr')" /> -->
             <span>{{ userinfo && userinfo.userName }} </span>
             <el-icon style="margin-left: 10px"><ArrowDownBold /></el-icon>
           </span>
 
           <template #dropdown>
-            <el-dropdown-menu class="user-account-dropdown-menu">
+            <el-dropdown-menu>
               <el-dropdown-item @click="Logout">
                 <icon class="icons" name="logout"></icon>登出
               </el-dropdown-item>

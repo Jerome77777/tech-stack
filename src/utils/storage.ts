@@ -4,12 +4,15 @@ export function setLocalStorage(key: string, data: any) {
 
 export function getLocalStorage(key: string) {
   try {
-    const data = JSON.parse(localStorage.getItem(key) || '')
-    return data
+    const storage = localStorage.getItem(key)
+    if (storage && typeof storage == 'string') {
+      return JSON.parse(storage)
+    }
+    return ''
   } catch (error) {
     console.error(error)
+    return ''
   }
-  return ''
 }
 
 export function removeLocalStorage(key: string) {

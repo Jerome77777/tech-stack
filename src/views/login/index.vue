@@ -11,14 +11,7 @@
         </el-alert>
       </div>
       <el-form :model="account" :rules="rules" ref="validateForm">
-        <el-form-item prop="uid" v-if="isSignUpPage">
-          <el-input v-model.trim.lazy="account.uid" placeholder="请输入账号" :autofocus="true">
-            <template #prepend>
-              <icon class="icons" name="login-user"></icon>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="uid" v-if="!isSignUpPage">
+        <el-form-item prop="uid">
           <el-input placeholder="请输入账号 ID" v-model.trim="account.uid">
             <template #prepend>
               <icon class="icons" name="login-user"></icon>
@@ -32,18 +25,13 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-button type="primary" v-if="!isSignUpPage" @click="onLoginClick" size="large">
-          登录
-        </el-button>
-        <el-button v-else @click="onSignupClick" size="large">注册</el-button>
+        <el-button type="primary" @click="onLoginClick" size="large"> 登录 </el-button>
       </el-form>
 
       <div class="form-group login-tip">
         <p class="text-center">
-          {{ isSignUpPage ? '您已拥有一个账号？' : '您还未拥有一个账号？' }}
-          <a class="el-button--text" href="javascript:;" @click="onBottomClick">
-            {{ isSignUpPage ? '登录' : '注册' }}</a
-          >
+          {{ '您还未拥有一个账号？' }}
+          <a class="el-button--text" href="javascript:;" @click="onBottomClick"> {{ '注册' }}</a>
         </p>
       </div>
       <div class="footer">
@@ -81,13 +69,9 @@ const rules = {
   passwd: [{ required: true, trigger: 'change,blur' }]
 }
 
-const isSignUpPage = computed(() => {
-  return router.currentRoute.value.path === '/register'
-})
-
 const onBottomClick = () => {
   router.push({
-    path: isSignUpPage.value ? '/register' : '/login'
+    path: '/login'
   })
 }
 
@@ -135,6 +119,10 @@ const onSignupClick = () => {
   padding-top: 20rem;
   position: relative;
   padding-bottom: 17rem;
+
+  :deep(.el-input__wrapper) {
+    width: 100%;
+  }
 
   .forgot-pwd {
     margin: 0 auto !important;
@@ -215,6 +203,9 @@ const onSignupClick = () => {
     width: 40rem;
     height: 100%;
     background-color: $white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     clear: both;
     border-radius: 3px;
     border: 1px solid #d7dce5;
